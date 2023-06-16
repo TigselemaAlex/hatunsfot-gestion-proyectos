@@ -2,14 +2,15 @@ package com.example.backend.entities;
 
 import com.example.backend.utils.enums.TaskStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,6 +29,6 @@ public class Task {
     private Project project;
     @ManyToOne
     private Hito hito;
-    @OneToMany (mappedBy = "task")
-    private Set<User> users;
+    @ManyToMany (mappedBy = "tasks")
+    private Set<User> users = new HashSet<>();
 }

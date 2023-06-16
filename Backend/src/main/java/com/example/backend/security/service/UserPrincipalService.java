@@ -2,6 +2,7 @@ package com.example.backend.security.service;
 
 import com.example.backend.entities.User;
 import com.example.backend.repositories.UserRepository;
+import com.example.backend.security.model.UserPrincipal;
 import com.example.backend.utils.mappers.UserMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,8 @@ public class UserPrincipalService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("Usuario no encontrado"));
-        return UserMapper.INSTANCE.userPrincipalFromUser(user);
+        UserPrincipal userPrincipal = UserMapper.INSTANCE.userPrincipalFromUser(user);
+        userPrincipal.setAuthorities(UserMapper.INSTANCE.mapRolesToAuthorities(user.getRole()));
+        return userPrincipal;
     }
 }

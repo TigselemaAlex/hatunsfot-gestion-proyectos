@@ -1,14 +1,15 @@
 package com.example.backend.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,5 +19,5 @@ public class Hito {
     private Long id;
     private LocalDate endDate;
     @OneToMany(mappedBy = "hito")
-    private Set<Task> tasks;
+    private Set<Task> tasks = new HashSet<>();;
 }

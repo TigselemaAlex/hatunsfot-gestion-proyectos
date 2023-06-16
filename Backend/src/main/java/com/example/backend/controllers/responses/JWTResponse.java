@@ -8,7 +8,5 @@ import lombok.Data;
 public class JWTResponse {
     private String token;
     private final String TOKEN_HEADER = "Bearer";
-    private String tenant;
     private UserResponse user;
-
 }

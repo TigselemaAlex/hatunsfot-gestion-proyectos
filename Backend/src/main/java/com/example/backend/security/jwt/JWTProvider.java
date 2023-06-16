@@ -10,7 +10,7 @@ import java.security.Key;
 
 @Component
 public class JWTProvider {
-    private final Key secret = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final Key secret = Keys.hmacShaKeyFor("E0BDCR_V3LWSv7YeoWHlwvy07bF-dsBDARWsonFc-gk".getBytes());
 
     public String generateToken(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();

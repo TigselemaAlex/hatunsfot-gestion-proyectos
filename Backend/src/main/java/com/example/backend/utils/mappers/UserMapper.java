@@ -1,11 +1,13 @@
 package com.example.backend.utils.mappers;
 
 import com.example.backend.controllers.requests.RegisterRequest;
+import com.example.backend.controllers.responses.UserInfoResponse;
 import com.example.backend.controllers.responses.UserResponse;
 import com.example.backend.entities.User;
 import com.example.backend.security.model.UserPrincipal;
 import com.example.backend.utils.enums.Role;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -27,5 +29,11 @@ public interface UserMapper {
 
     UserResponse userResponseFromUserPrincipal(UserPrincipal userPrincipal);
 
+
     User userFromRegisterRequest(RegisterRequest request);
+
+
+    UserResponse userResponseFromUser(User user);
+
+    UserInfoResponse userInfoFromUser(User user);
 }
