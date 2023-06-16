@@ -2,11 +2,14 @@ package com.example.backend.entities;
 
 import com.example.backend.utils.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import java.util.HashSet;
+import java.util.Set;
+
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -21,10 +24,18 @@ public class User {
     private Boolean availability;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @ManyToOne
-    private Project project;
-    @ManyToOne
-    private Task task;
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private Set<Project> projects = new HashSet<>();;
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id")
+    )
+    private Set<Task> tasks = new HashSet<>();
 
     @PrePersist
     public void prePersist(){
